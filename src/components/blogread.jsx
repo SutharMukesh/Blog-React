@@ -4,10 +4,9 @@ import { Link } from "react-router-dom";
 export default class BlogRead extends Component {
   getArticle = () => {
     let { id } = this.props.match.params;
-    return this.props.articles.filter(article => id == article.id)[0];
+    return this.props.blogs.filter(blog => id === blog._id)[0];
   };
   render() {
-    console.log(this.props);
     return (
       <React.Fragment>
         <div
@@ -16,7 +15,7 @@ export default class BlogRead extends Component {
         >
           <div class="container">
             <h1 class="display-4">{this.getArticle().title}</h1>
-            <p class="lead">{this.getArticle().description}</p>
+            <p class="lead">{this.getArticle().author}</p>
           </div>
         </div>
         <div class="container-fluid">
@@ -34,7 +33,7 @@ export default class BlogRead extends Component {
               </Link>
             </div>
             <div class="col fluid">
-              <p class="container lead">{this.getArticle().content}</p>
+              <p class="container lead">{this.getArticle().body}</p>
             </div>
             <div class="col col-lg-2"></div>
           </div>

@@ -5,7 +5,7 @@ const NavBar = props => {
   return (
     <React.Fragment>
       <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="/">
+        <a className="navbar-brand" href="/">
           Mukesh Suthar
         </a>
         <ul class="nav nav-pills">
@@ -15,14 +15,14 @@ const NavBar = props => {
             </Link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/portfolio">
+            <Link class="nav-link" to={"/portfolio"}>
               Portfolio
-            </a>
+            </Link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/about">
-              About Me
-            </a>
+            <Link class="nav-link" to={"/about"}>
+              Aboutme
+            </Link>
           </li>
         </ul>
       </nav>

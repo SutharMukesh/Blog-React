@@ -9,20 +9,13 @@ class App extends Component {
   constructor(){
     super();
     this.state={
-    articles:[]
+    blogs:[]
   }
   }
   async componentDidMount() {
-    const news = await fetch(
-      "https://newsapi.org/v2/top-headlines?" +
-        "country=us&" +
-        "apiKey=7357cb05c5234c949c0529bbe9de3e46"
-    );
-    const newsdata = await news.json();
-    let id=0
-    newsdata.articles = newsdata.articles.map((article)=>{article.id=id++; return article})
-    console.log(newsdata.articles);
-    this.setState({articles:newsdata.articles})
+    const blogs = await fetch("http://localhost:3004/");
+    const blogsdata = await blogs.json();
+    this.setState({blogs:blogsdata})
   }
 
   render() {
@@ -31,8 +24,8 @@ class App extends Component {
         <div className="App" >
           <NavBar />
           <Switch>
-            <Route path="/read/:id" render={props => <BlogRead {...props} articles={this.state.articles} />}/>
-            <Route exact path="/" render={props=><BlogHome {...props} articles={this.state.articles} />}/>
+            <Route path="/read/:id" render={props => <BlogRead {...props} blogs={this.state.blogs} />}/>
+            <Route exact path="/" render={props=><BlogHome {...props} blogs={this.state.blogs} />}/>
           </Switch>
         </div>
       </Router>
