@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 // Stateless Functional component
 const NavBar = props => {
   return (
@@ -9,9 +10,9 @@ const NavBar = props => {
         </a>
         <ul class="nav nav-pills">
           <li class="nav-item">
-            <a class="nav-link" href="/">
+            <Link class="nav-link" to={"/"}>
               Home
-            </a>
+            </Link>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/portfolio">

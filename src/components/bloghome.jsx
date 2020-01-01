@@ -3,23 +3,30 @@ import { Link } from "react-router-dom";
 
 export default class BlogHome extends Component {
   render() {
-    console.log(this.props);
+    console.log(this.props.articles);
     return (
-      <React.Fragment>
-        <div class="container card-columns" style={{ display: "inline-block" }}>
-          {this.props.blogs.map(blog => (
+      <React.Fragment style={{ display: "inline-block", textAlign: "left" }}>
+        <div class="container card-columns">
+          {this.props.articles.map(article => (
             <div
               class="card border-secondary bg-light mb-3"
-              style={{ maxWidth: "20rem" }}
+              style={{ maxWidth: "30rem" }}
             >
-              <div class="card-header">{blog.publisher}</div>
+              <img
+                src={article.urlToImage}
+                class="card-img-top"
+                alt="..."
+              ></img>
+              <div class="card-header">{article.author}</div>
               <div class="card-body">
-                <h5 class="card-title">{blog.headline}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{blog.author}</h6>
-                <p class="card-text">{blog.description}</p>
+                <h5 class="card-title">{article.title}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                  {article.publishedAt}
+                </h6>
+                <p class="card-text">{article.description}</p>
               </div>
               <div class="card-footer bg-transparent border-success">
-                <Link to={"/read/" + blog.id}>
+                <Link to={"/read/" + article.id}>
                   <button type="button" class="btn btn-outline-secondary m-2">
                     Open
                   </button>

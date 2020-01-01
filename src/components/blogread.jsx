@@ -2,19 +2,21 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 export default class BlogRead extends Component {
-  getBlog = () => {
-    let { blogid } = this.props.match.params;
-    console.log(this.props.blogs.filter(blog => blogid === blog.id));
-    return this.props.blogs.filter(blog => blogid === blog.id)[0];
+  getArticle = () => {
+    let { id } = this.props.match.params;
+    return this.props.articles.filter(article => id == article.id)[0];
   };
   render() {
     console.log(this.props);
     return (
       <React.Fragment>
-        <div class="jumbotron jumbotron-fluid">
+        <div
+          class="jumbotron jumbotron-fluid"
+          style={{ display: "inline-block", textAlign: "left" }}
+        >
           <div class="container">
-            <h1 class="display-4">{this.getBlog().headline}</h1>
-            <p class="lead">{this.getBlog().description}</p>
+            <h1 class="display-4">{this.getArticle().title}</h1>
+            <p class="lead">{this.getArticle().description}</p>
           </div>
         </div>
         <div class="container-fluid">
@@ -32,7 +34,7 @@ export default class BlogRead extends Component {
               </Link>
             </div>
             <div class="col fluid">
-              <p class="container lead">{this.getBlog().articleBody}</p>
+              <p class="container lead">{this.getArticle().content}</p>
             </div>
             <div class="col col-lg-2"></div>
           </div>
