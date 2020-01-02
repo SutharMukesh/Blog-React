@@ -4,24 +4,24 @@ import { Link } from "react-router-dom";
 const NavBar = props => {
   return (
     <React.Fragment>
-      <nav class="navbar navbar-light bg-light">
+      <nav className="navbar navbar-light bg-light">
         <a className="navbar-brand" href="/">
           Mukesh Suthar
         </a>
-        <ul class="nav nav-pills">
-          <li class="nav-item">
-            <Link class="nav-link" to={"/"}>
+        <ul className="nav nav-pills">
+          <li className="nav-item">
+            <Link className="nav-link" to={"/"}>
               Home
             </Link>
           </li>
-          <li class="nav-item">
-            <Link class="nav-link" to={"/portfolio"}>
-              Portfolio
+          <li className="nav-item">
+            <Link className="nav-link" to={"/signin"}>
+              Signin
             </Link>
           </li>
-          <li class="nav-item">
-            <Link class="nav-link" to={"/about"}>
-              Aboutme
+          <li className="nav-item">
+            <Link className="nav-link" to={"/about"}>
+              About
             </Link>
           </li>
         </ul>
