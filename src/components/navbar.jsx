@@ -14,11 +14,18 @@ const NavBar = props => {
               Home
             </Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to={"/signin"}>
-              Signin
-            </Link>
-          </li>
+          {(() => {
+            if (!props.user) {
+              return (
+                <li className="nav-item">
+                  <Link className="nav-link" to={"/signin"}>
+                    Signin
+                  </Link>
+                </li>
+              );
+            }
+          })()}
+
           <li className="nav-item">
             <Link className="nav-link" to={"/about"}>
               About

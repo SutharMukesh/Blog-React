@@ -29,7 +29,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <NavBar />
+          <NavBar user={this.state.user} />
           <Switch>
             <Route
               path="/read/:id"
