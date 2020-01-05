@@ -1,35 +1,60 @@
 import React, { Component } from "react";
 
 export default class Signin extends Component {
+  signup = async event => {
+    event.preventDefault();
+    let user = {
+      name: event.target.InputUsername.value,
+      email: event.target.InputEmail.value,
+      password: event.target.InputPassword.value
+    };
+    const response = await fetch("http://localhost:3004/user/signup", {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+    });
+    let responsedata = await response.json();
+    alert(responsedata.message);
+    if (response.status === 200) {
+      this.props.setUserObj(
+        Object.assign(user, { token: response.headers.get("x-auth-header") })
+      );
+      this.props.history.push("/");
+    }
+  };
+
   render() {
     return (
       <div
-        class="d-flex container mt-5 justify-content-center"
+        className="d-flex container mt-5 justify-content-center"
         style={{ display: "inline-block", textAlign: "left" }}
       >
-        <form>
-          <div class="form-group">
-            <label for="InputUsername">Username</label>
-            <input type="username" class="form-control" id="InputUsername" />
+        <form onSubmit={this.signup}>
+          <div className="form-group">
+            <label>Username</label>
+            <input type="username" className="form-control" id="InputUsername" />
           </div>
-          <div class="form-group">
-            <label for="InputEmail">Email address</label>
+          <div className="form-group">
+            <label>Email address</label>
             <input
               type="email"
-              class="form-control"
+              className="form-control"
               id="InputEmail"
               aria-describedby="emailHelp"
             />
-            <small id="emailHelp" class="form-text text-muted">
+            <small id="emailHelp" className="form-text text-muted">
               We'll never share your email with anyone else.
             </small>
           </div>
-          <div class="form-group">
-            <label for="InputPassword">Password</label>
-            <input type="password" class="form-control" id="InputPassword" />
+          <div className="form-group">
+            <label>Password</label>
+            <input type="password" className="form-control" id="InputPassword" />
           </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary mr-2">
+          <div className="form-group">
+            <button type="submit" className="btn btn-primary mr-2">
               Signup
             </button>
           </div>
