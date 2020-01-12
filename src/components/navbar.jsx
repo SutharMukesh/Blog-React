@@ -1,16 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
+/* eslint-disable linebreak-style */
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 // Stateless Functional component
-const NavBar = props => {
+const NavBar = (props) => {
+  console.log('rendering navbar');
   return (
-    <React.Fragment>
+    <>
       <nav className="navbar navbar-light bg-light">
         <a className="navbar-brand" href="/">
           Mukesh Suthar
         </a>
         <ul className="nav nav-pills">
           <li className="nav-item">
-            <Link className="nav-link" to={"/"}>
+            <Link className="nav-link" to="/">
               Home
             </Link>
           </li>
@@ -18,7 +22,7 @@ const NavBar = props => {
             if (!props.user) {
               return (
                 <li className="nav-item">
-                  <Link className="nav-link" to={"/signin"}>
+                  <Link className="nav-link" to="/signin">
                     Signin
                   </Link>
                 </li>
@@ -27,13 +31,13 @@ const NavBar = props => {
           })()}
 
           <li className="nav-item">
-            <Link className="nav-link" to={"/about"}>
+            <Link className="nav-link" to="/about">
               About
             </Link>
           </li>
         </ul>
       </nav>
-    </React.Fragment>
+    </>
   );
 };
 

@@ -27,6 +27,7 @@ export default class Signin extends Component {
   };
 
   render() {
+    console.log("rendering signup")
     return (
       <div
         className="d-flex container mt-5 justify-content-center"

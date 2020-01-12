@@ -12,10 +12,10 @@ class App extends Component {
     blogs: [],
     user: null
   };
-  
+
   // set user object after signin and signup
-  setUserObj = (user)=>{
-    this.setState({user})
+  setUserObj = (user) => {
+    this.setState({ user })
   }
 
   // fetch all blogs before rendering
@@ -26,9 +26,10 @@ class App extends Component {
   }
 
   render() {
+    console.log("rendering app")
     return (
       <Router>
-        <div className="App">
+        <div>
           <NavBar user={this.state.user} />
           <Switch>
             <Route

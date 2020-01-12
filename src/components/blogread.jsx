@@ -1,44 +1,88 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+/* eslint-disable linebreak-style */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class BlogRead extends Component {
-  getArticle = () => {
-    let { id } = this.props.match.params;
-    return this.props.blogs.filter(blog => id === blog._id)[0];
-  };
+  
+  state = {
+    blog: {
+      tags:[]
+    }
+  }
+  
+  async componentDidMount() {
+    console.log("inside")
+    const { id } = this.props.match.params;
+    const blog = await fetch(`http://localhost:3004/${id}`);
+    const blogdata = await blog.json();
+    this.setState({ blog: blogdata[0] });
+  }
+
   render() {
+    console.log("rendering blogread")
     return (
-      <React.Fragment>
+      <>
         <div
-          class="jumbotron jumbotron-fluid"
-          style={{ display: "inline-block", textAlign: "left" }}
+          className="card container shadow-sm container d-flex flex-column md-2 mt-4"
+          // style={{width:"60%"}}
         >
-          <div class="container">
-            <h1 class="display-4">{this.getArticle().title}</h1>
-            <p class="lead">{this.getArticle().author}</p>
-          </div>
-        </div>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col col-lg-2 btn-group-vertical h-25 ">
-              <Link to="/" class="col ">
-                <button type="button" class="btn btn-light">
-                  Back
-                </button>
-              </Link>
-              <Link to="/" class="col ">
-                <button type="button" class="btn btn-light">
-                  Edit
-                </button>
-              </Link>
+          <div className="m-4 row justify-content-between">
+            <div className="">
+              <h2>{this.state.blog.title}</h2>
+                <strong>Author: </strong>
+              <span>
+                {this.state.blog.author}
+              </span>
+              <div>
+                <strong>Tags: </strong>
+              {this.state.blog.tags.map((tag) => (
+                <span className="badge mr-2 badge-primary">{tag}</span>
+              ))}
+              {(this.state.blog.datemodified)?(
+              <div>
+                <strong>Updated on: </strong>
+                <span>{this.state.blog.datemodified}</span>
+              </div>):(
+              <div>
+                <strong>Published on: </strong>
+                <span>{this.state.blog.datepublished}</span>
+              </div>)}
+              </div>
             </div>
-            <div class="col fluid">
-              <p class="container lead">{this.getArticle().body}</p>
+            
+            <div className="">
+              {(() => {
+                // show edit only when user is logged in
+                if (this.props.user) {
+                  return (
+                    <>
+                      <Link to={`/edit/${this.props.match.params.id}`} className="mr-2">
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-outline-secondary"
+                        >
+                          Edit
+                        </button>
+                      </Link>
+                      <Link to="/" className="">
+                        <button type="button" className="btn btn-sm btn-outline-danger">
+                          Delete
+                        </button>
+                      </Link>
+                    </>
+                  );
+                }
+              })()}
             </div>
-            <div class="col col-lg-2"></div>
           </div>
+          <div className="m-4 ">
+            <p className="">{this.state.blog.body}</p>
+          </div>
+
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }
