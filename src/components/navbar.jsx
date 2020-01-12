@@ -8,7 +8,7 @@ const NavBar = (props) => {
   console.log('rendering navbar');
   return (
     <>
-      <nav className="navbar navbar-light bg-light">
+      <nav className="navbar m-2 shadow-sm rounded navbar-light" style={{ 'background-color': '#efefef' }}>
         <a className="navbar-brand" href="/">
           Mukesh Suthar
         </a>
@@ -29,7 +29,6 @@ const NavBar = (props) => {
               );
             }
           })()}
-
           <li className="nav-item">
             <Link className="nav-link" to="/about">
               About

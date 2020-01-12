@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 export default class BlogRead extends Component {
-  
+
   state = {
     blog: {
       tags:[]
@@ -23,11 +23,17 @@ export default class BlogRead extends Component {
   render() {
     console.log("rendering blogread")
     return (
-      <>
+      <div className="container">
         <div
-          className="card container shadow-sm container d-flex flex-column md-2 mt-4"
+          className="card shadow-sm  d-flex flex-column mt-5"
           // style={{width:"60%"}}
         >
+          <img
+                src={(this.state.blog.image) ? (this.state.blog.image) : '/images/default-fallback-image.jpg'}
+                className="card-img-top"
+                alt="card img"
+                style={{height: '15rem',"object-fit": "cover" }}
+              />
           <div className="m-4 row justify-content-between">
             <div className="">
               <h2>{this.state.blog.title}</h2>
@@ -51,7 +57,6 @@ export default class BlogRead extends Component {
               </div>)}
               </div>
             </div>
-            
             <div className="">
               {(() => {
                 // show edit only when user is logged in
@@ -80,9 +85,8 @@ export default class BlogRead extends Component {
           <div className="m-4 ">
             <p className="">{this.state.blog.body}</p>
           </div>
-
         </div>
-      </>
+      </div>
     );
   }
 }

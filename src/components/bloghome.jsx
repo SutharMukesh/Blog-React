@@ -10,56 +10,69 @@ export default function BlogHome(props) {
   console.log('rendering bloghome');
   return (
     <>
-      <div className="container card-columns">
-        {props.blogs.map((blog) => (
-          <div
-            key={blog._id}
-            className="card border-secondary bg-light mb-3"
-            style={{ maxWidth: '30rem' }}
-          >
-            <img src={blog.image} className="card-img-top" alt="" />
-            <div className="card-header">{blog.author}</div>
-            <div className="card-body">
-              <h5 className="card-title">{blog.title}</h5>
-              <h6 className="card-subtitle mb-2 text-muted">
-                {blog.datepublished}
-              </h6>
-              {/* <p className="card-text">{blog.body}</p> */}
-            </div>
-            <div className="card-footer bg-transparent border-success">
-              <Link to={`/read/${blog._id}`}>
-                <button
-                  type="button"
-                  className="btn btn-outline-secondary m-2"
-                >
-                    Open
-                </button>
-              </Link>
-              {(() => {
-                // show edit only when user is logged in
-                if (props.user) {
-                  return (
-                    <>
-                      <Link to={`/edit/${blog._id}`}>
-                        <button
-                          type="button"
-                          className="btn btn-outline-secondary m-2"
-                        >
-                            Edit
-                        </button>
-                      </Link>
-                      <button
-                        type="button"
-                        className="btn btn-outline-secondary m-2"
-                      >
-                          Delete
-                      </button>
-                    </>
-                  );
-                }
-              })()}
-            </div>
+      <div className="container d-flex flex-column mt-5">
+
+        {(props.user) ? (
+          <div>
+            <button
+              type="button"
+              className="btn float-right btn-sm btn-outline-primary m-2"
+            >
+Add Blog
+            </button>
           </div>
+        ) : <></>}
+
+        {props.blogs.map((blog) => (
+          <Link
+            to={`/read/${blog._id}`}
+            style={{ textDecoration: 'none' }}
+          >
+            <div
+              key={blog._id}
+              className="card hoverable shadow-sm d-flex flex-row mb-3"
+            >
+              <img
+                src={(blog.image) ? (blog.image) : '/images/default-fallback-image.jpg'}
+                className="card-img"
+                alt="card img"
+                style={{ width: '10rem', height: '10rem', 'object-fit': 'cover' }}
+              />
+              <div className="container d-flex flex-row justify-content-between card-body">
+                <div className="flex-fill">
+                  <h5 className="card-title">{blog.title}</h5>
+                  <h6 className="card-subtitle text-muted">
+                    {blog.author}
+                  </h6>
+                </div>
+                <div className="">
+                  {(() => {
+                    // show edit only when user is logged in
+                    if (props.user) {
+                      return (
+                        <>
+                          <Link to={`/edit/${blog._id}`}>
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-outline-secondary m-2"
+                            >
+                            Edit
+                            </button>
+                          </Link>
+                          <button
+                            type="button"
+                            className="btn btn-sm btn-outline-danger"
+                          >
+                          Delete
+                          </button>
+                        </>
+                      );
+                    }
+                  })()}
+                </div>
+              </div>
+            </div>
+          </Link>
         ))}
       </div>
     </>
