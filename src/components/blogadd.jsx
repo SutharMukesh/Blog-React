@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+let apiurl = process.env.REACT_APP_API_URL;
 export default class BlogAdd extends Component {
     addBlog = async event => {
         event.preventDefault();
@@ -13,7 +13,7 @@ export default class BlogAdd extends Component {
             datepublished: new Date().toString(),
         };
         debugger
-        const response = await fetch("http://localhost:3004/add", {
+        const response = await fetch(`${apiurl}add`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

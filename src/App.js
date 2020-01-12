@@ -8,10 +8,11 @@ import BlogAdd from "./components/blogadd";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+let apiurl = process.env.REACT_APP_API_URL;
 class App extends Component {
   state = {
     blogs: [],
-    user: null
+    user: null,
   };
 
   // set user object after signin and signup
@@ -20,14 +21,14 @@ class App extends Component {
   }
 
   refreshBlog = async () => {
-    const blogs = await fetch("http://localhost:3004/");
+    const blogs = await fetch(apiurl);
     const blogsdata = await blogs.json();
     this.setState({ blogs: blogsdata });
   }
 
   deleteBlog = async (id) => {
     if (window.confirm("you sure?")) {
-      const deleteres = await fetch("http://localhost:3004/" + id, {
+      const deleteres = await fetch(apiurl + id, {
         method: "DELETE",
         headers: {
           "x-auth-header": this.state.user.token,
@@ -63,7 +64,7 @@ class App extends Component {
             <Route
               exact
               path="/add"
-              render={props => <BlogAdd {...props} user={this.state.user} refreshBlog={this.refreshBlog} />}
+              render={props => <BlogAdd {...props} user={this.state.user} refreshBlog={this.refreshBlog} apiurl={this.state.apiurl} />}
             />
             <Route
               exact

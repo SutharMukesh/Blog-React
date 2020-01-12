@@ -3,7 +3,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+let apiurl = process.env.REACT_APP_API_URL;
 export default class BlogRead extends Component {
 
   state = {
@@ -14,8 +14,9 @@ export default class BlogRead extends Component {
   
   async componentDidMount() {
     console.log("inside")
+    debugger;
     const { id } = this.props.match.params;
-    const blog = await fetch(`http://localhost:3004/${id}`);
+    const blog = await fetch(`${apiurl}${id}`);
     const blogdata = await blog.json();
     this.setState({ blog: blogdata[0] });
   }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+let apiurl = process.env.REACT_APP_API_URL;
 
 export default class Signin extends Component {
   signup = async event => {
@@ -8,7 +9,7 @@ export default class Signin extends Component {
       email: event.target.InputEmail.value,
       password: event.target.InputPassword.value
     };
-    const response = await fetch("http://localhost:3004/user/signup", {
+    const response = await fetch(`${apiurl}user/signup`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors",
       headers: {
