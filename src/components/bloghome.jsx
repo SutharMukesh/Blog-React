@@ -28,55 +28,59 @@ Add Blog
         ) : <></>}
 
         {props.blogs.map((blog) => (
-          <Link
-            to={`/read/${blog._id}`}
-            style={{ textDecoration: 'none' }}
+
+          <div
+            key={blog._id}
+            className="card hoverable shadow-sm d-flex flex-row mb-3"
           >
-            <div
-              key={blog._id}
-              className="card hoverable shadow-sm d-flex flex-row mb-3"
-            >
-              <img
-                src={(blog.image) ? (blog.image) : '/images/default-fallback-image.jpg'}
-                className="card-img"
-                alt="card img"
-                style={{ width: '10rem', height: '10rem', 'object-fit': 'cover' }}
-              />
-              <div className="container d-flex flex-row justify-content-between card-body">
-                <div className="flex-fill">
+            <img
+              src={(blog.image) ? (blog.image) : '/images/default-fallback-image.jpg'}
+              className="card-img"
+              alt="card img"
+              style={{ width: '10rem', height: '10rem', 'object-fit': 'cover' }}
+            />
+            <div className="container d-flex flex-row justify-content-between card-body">
+              <div className="flex-fill">
+                <Link
+                  to={`/read/${blog._id}`}
+                  style={{ textDecoration: 'none' }}
+                >
                   <h5 className="card-title">{blog.title}</h5>
-                  <h6 className="card-subtitle text-muted">
-                    {blog.author}
-                  </h6>
-                </div>
-                <div className="">
-                  {(() => {
-                    // show edit only when user is logged in
-                    if (props.user) {
-                      return (
-                        <>
-                          <Link to={`/edit/${blog._id}`}>
-                            <button
-                              type="button"
-                              className="btn btn-sm btn-outline-secondary m-2"
-                            >
-                            Edit
-                            </button>
-                          </Link>
+                </Link>
+                <h6 className="card-subtitle text-muted">
+                  {blog.author}
+                </h6>
+              </div>
+              <div className="">
+                {(() => {
+                  // show edit only when user is logged in
+                  if (props.user) {
+                    return (
+                      <>
+                        <Link to={`/edit/${blog._id}`}>
                           <button
                             type="button"
-                            className="btn btn-sm btn-outline-danger"
+                            className="btn btn-sm btn-outline-secondary m-2"
                           >
-                          Delete
+                            Edit
                           </button>
-                        </>
-                      );
-                    }
-                  })()}
-                </div>
+                        </Link>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-outline-danger"
+                          onClick={() => {
+                            props.deleteBlog(blog._id);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </>
+                    );
+                  }
+                })()}
               </div>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </>

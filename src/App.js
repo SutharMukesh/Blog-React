@@ -25,6 +25,20 @@ class App extends Component {
     this.setState({ blogs: blogsdata });
   }
 
+  deleteBlog = async (id) => {
+    if (window.confirm("you sure?")) {
+      const deleteres = await fetch("http://localhost:3004/" + id, {
+        method: "DELETE",
+        headers: {
+          "x-auth-header": this.state.user.token,
+        }
+      });
+      const deleteresdata = await deleteres.json();
+      alert(deleteresdata.message)
+      await this.refreshBlog()
+    }
+  }
+
   // fetch all blogs before rendering
   async componentDidMount() {
     await this.refreshBlog()
@@ -39,12 +53,12 @@ class App extends Component {
           <Switch>
             <Route
               path="/read/:id"
-              render={props => <BlogRead {...props} blogs={this.state.blogs} />}
+              render={props => <BlogRead {...props} blogs={this.state.blogs} user={this.state.user} />}
             />
             <Route
               exact
               path="/"
-              render={props => <BlogHome {...props} blogs={this.state.blogs} user={this.state.user} />}
+              render={props => <BlogHome {...props} blogs={this.state.blogs} user={this.state.user} deleteBlog={this.deleteBlog} />}
             />
             <Route
               exact
