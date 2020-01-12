@@ -14,12 +14,16 @@ export default function BlogHome(props) {
 
         {(props.user) ? (
           <div>
-            <button
-              type="button"
-              className="btn float-right btn-sm btn-outline-primary m-2"
+            <Link
+              to="/add"
             >
+              <button
+                type="button"
+                className="btn float-right btn-sm btn-outline-primary m-2"
+              >
 Add Blog
-            </button>
+              </button>
+            </Link>
           </div>
         ) : <></>}
 

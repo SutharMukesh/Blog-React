@@ -21,7 +21,7 @@ class Signin extends Component {
     alert(responsedata.message);
     if (response.status === 200) {
       this.props.setUserObj(
-        Object.assign(user, { token: response.headers.get("x-auth-header") })
+        Object.assign(user, { token: response.headers.get("x-auth-header"),name: responsedata.data.name})
       );
       this.props.history.push("/");
     }

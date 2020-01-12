@@ -4,6 +4,7 @@ import BlogRead from "./components/blogread";
 import BlogHome from "./components/bloghome";
 import Signin from "./components/signin";
 import Signup from "./components/signup";
+import BlogAdd from "./components/blogadd";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -18,11 +19,15 @@ class App extends Component {
     this.setState({ user })
   }
 
-  // fetch all blogs before rendering
-  async componentDidMount() {
+  refreshBlog = async () => {
     const blogs = await fetch("http://localhost:3004/");
     const blogsdata = await blogs.json();
     this.setState({ blogs: blogsdata });
+  }
+
+  // fetch all blogs before rendering
+  async componentDidMount() {
+    await this.refreshBlog()
   }
 
   render() {
@@ -40,6 +45,11 @@ class App extends Component {
               exact
               path="/"
               render={props => <BlogHome {...props} blogs={this.state.blogs} user={this.state.user} />}
+            />
+            <Route
+              exact
+              path="/add"
+              render={props => <BlogAdd {...props} user={this.state.user} refreshBlog={this.refreshBlog} />}
             />
             <Route
               exact
