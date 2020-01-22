@@ -12,7 +12,7 @@ let apiurl = process.env.REACT_APP_API_URL;
 class App extends Component {
   state = {
     blogs: [],
-    user: null,
+    user: {},
   };
 
   // set user object after signin and signup

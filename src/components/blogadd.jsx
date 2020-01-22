@@ -1,6 +1,38 @@
 import React, { Component } from "react";
+import {RichUtils } from 'draft-js';
+import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
+import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin';
+import editorStyles from '../../node_modules/draft-js-inline-toolbar-plugin/lib/plugin.css';
+import createEmojiPlugin from 'draft-js-emoji-plugin';
+import '../../node_modules/draft-js-emoji-plugin/lib/plugin.css'
 let apiurl = process.env.REACT_APP_API_URL;
+const inlineToolbarPlugin = createInlineToolbarPlugin();
+const emojiPlugin = createEmojiPlugin();
+const { InlineToolbar } = inlineToolbarPlugin;
+const { EmojiSuggestions } = emojiPlugin;
+
 export default class BlogAdd extends Component {
+    
+    state = {
+        editorState: createEditorStateWithText("dsadadsasd"),
+    };
+    onChange = editorState => this.setState({ editorState });
+
+    handleKeyCommand = (command) => {
+        const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
+        if (newState) {
+            this.onChange(newState);
+            return 'handled';
+        }
+        return 'not-handled';
+    }
+
+    setEditor = (editor) => {
+        this.editor = editor;
+    };
+    focusEditor = () => {
+            this.editor.focus();
+    };
     addBlog = async event => {
         event.preventDefault();
 
@@ -17,7 +49,7 @@ export default class BlogAdd extends Component {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "x-auth-header":this.props.user.token
+                "x-auth-header": this.props.user.token
             },
             body: JSON.stringify(blog)
         });
@@ -61,12 +93,22 @@ export default class BlogAdd extends Component {
                     </div>
                     <div className="form-group">
                         <label>Body</label>
-
-                        <textarea
-                            id="bodyid"
-                            type="text"
-                            className="form-control"
-                        />
+                        <div 
+                            className={editorStyles.editor}
+                            onClick={this.focusEditor}
+                        >
+                            <Editor
+                                // id="bodyid"
+                                // ref={this.setEditor}
+                                editorState={this.state.editorState}
+                                handleKeyCommand={this.handleKeyCommand}
+                                onChange={this.onChange}
+                                plugins={[inlineToolbarPlugin,emojiPlugin]}
+                                ref={(element) => { this.editor = element; }}
+                            />
+                            <InlineToolbar />
+                            <EmojiSuggestions />
+                        </div>
                     </div>
                     <div>
                         <button type="submit" className="btn btn-info">
